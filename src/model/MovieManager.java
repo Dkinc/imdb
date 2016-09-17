@@ -34,4 +34,7 @@ public class MovieManager {
 		MovieDAO.getInstance().addMovie(m);// записва в базата
 	}
 	
+	 public void searchMovie(String str){
+		//todo	
+    }
 }

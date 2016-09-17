@@ -54,7 +54,7 @@ public class MovieDAO {
 	public void addMovie(Movie m){
 		try {
 			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement("INSERT INTO movies (title, director, writter,pg_rating,"
-			+ "movieLength,releaseDate,awards,resume,movieRating,numberOfRates) VALUES (?,?,?,?,?,?,?,?,?,?);");
+			+ "movie_length,release_date,awards,resume,movie_rating,number_of_rates) VALUES (?,?,?,?,?,?,?,?,?,?);");
 			
 			st.setString(1, m.getTitle());
 			st.setString(2, m.getDirector());
@@ -84,7 +84,7 @@ public class MovieDAO {
 		m.setMovieRating(rating);
 		try {
 			Statement st = DBManager.getInstance().getConnection().createStatement();
-			st.executeUpdate("UPDATE movies SET numberOfRates = numberOfRates + 1, movie_rating = " + rating + " where title = " + m.getTitle() + " and  releaseDate = " + m.getReleaseDate());
+			st.executeUpdate("UPDATE movies SET number_of_rates = number_of_rates + 1, movie_rating = " + rating + " where title = " + m.getTitle() + " and  release_date = " + m.getReleaseDate());
 			
 		} catch (SQLException e) {
 			System.out.println("Rate problems :)");
@@ -96,8 +96,6 @@ public class MovieDAO {
 		//todo	
     }
     
-    public void searchMovie(String str){
-		//todo	
-    }
+   
     
 }
