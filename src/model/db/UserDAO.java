@@ -26,9 +26,9 @@ public class UserDAO {
 		Set<User> users = new HashSet<User>();
 		try {
 			Statement st = DBManager.getInstance().getConnection().createStatement();
-			ResultSet resultSet = st.executeQuery("SELECT username, password, email, FROM users;");
+			ResultSet resultSet = st.executeQuery("SELECT nickname, password, email FROM users;");
 			while(resultSet.next()){
-				users.add(new User(	resultSet.getString("username"),
+				users.add(new User(	resultSet.getString("nickname"),
 									resultSet.getString("password"),
 									resultSet.getString("email")
 									));
@@ -43,7 +43,8 @@ public class UserDAO {
 	
 	public void saveUser(User user){
 		try {
-			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement("INSERT INTO users (username, password, email,) VALUES (?, ?, ?);");
+			System.out.println(user.getEmail());
+			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement("INSERT INTO users (nickname, password, email) VALUES (?, ?, ?);");
 			st.setString(1, user.getUsername());
 			st.setString(2, user.getPassword());
 			st.setString(3, user.getEmail());

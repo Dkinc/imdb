@@ -33,7 +33,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		if (valid) {
 			UsersManager.getInstance().regUser(username, password2, email);
-			RequestDispatcher view = request.getRequestDispatcher("index.html");
+			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 			view.forward(request, response);
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("register.html");

@@ -42,10 +42,10 @@ public class AddMovieServlet extends HttpServlet {
 		}
 		if (validation) {
 		    MovieManager.getInstance().makeMovie(title, director, writter, pg_rating, movieLength, releaseDate, awards, resume);
-			RequestDispatcher view = request.getRequestDispatcher("същата стараница, но с надпис че успешно е добавил филм към базата.html");// да се направи!
+			RequestDispatcher view = request.getRequestDispatcher("index.jsp");// пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!
 			view.forward(request, response);
 		} else {
-			RequestDispatcher view = request.getRequestDispatcher("същата стараница, но с надпис че добавянето е неуспешно.html"); // да се направи!
+			RequestDispatcher view = request.getRequestDispatcher("addMovie.html"); // пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!
 			view.forward(request, response);
 		}
 	}

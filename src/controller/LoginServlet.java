@@ -26,7 +26,8 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String htmlFile;
 		if(UsersManager.getInstance().validLogin(username, password)){
-			htmlFile = "index.html";
+			request.getSession().setAttribute("loggedAs", username);
+			htmlFile = "index.jsp";
 		}else{
 			htmlFile = "login.html";
 		}
