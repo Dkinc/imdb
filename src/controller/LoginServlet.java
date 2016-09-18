@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 			request.getSession().setAttribute("loggedAs", username);
 			htmlFile = "index.jsp";
 		}else{
-			htmlFile = "login.html";
+			htmlFile = "loginFailed.jsp";
 		}
 		RequestDispatcher view = request.getRequestDispatcher(htmlFile);
 		view.forward(request, response);
