@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +32,7 @@
 	<div id="site-content">
 		<header class="site-header">
 			<div class="container">
-				<a href="index.html" id="branding"> <img src="images/logo.png"
+				<a href="index.jsp" id="branding"> <img src="images/logo.png"
 					alt="" class="logo">
 					<div class="logo-copy">
 						<h1 class="site-title">MovieRate</h1>
@@ -44,10 +46,15 @@
 						<i class="fa fa-bars"></i>
 					</button>
 					<ul class="menu">
-						<li class="menu-item current-menu-item"><a href="index.html">Home</a></li>
+						<li class="menu-item current-menu-item"><a href="index.jsp">Home</a></li>
 						<li class="menu-item"><a href="about.html">About</a></li>
-						<li class="menu-item"><a href="login.html">Log In</a></li>
-						<li class="menu-item"><a href="register.html">Register</a></li>
+						<%if(session.getAttribute("loggedAs") == null){%>
+						<li class="menu-item"><a href="login.jsp">Log In</a></li>
+						<li class="menu-item"><a href="register.jsp">Register</a></li>
+						<% } else{%>
+						<li class="menu-item"><a href="addMovie.html">Add Movie</a></li>
+						<li class="menu-item"><a href="LogOutServlet" >Log Out</a></li>
+						<%} %>
 						<!-- 
 							<li class="menu-item"><a href="review.html">Movie reviews</a></li>
 							<li class="menu-item"><a href="joinus.html">Join us</a></li>
@@ -65,67 +72,34 @@
 				</div>
 				<!-- .main-navigation -->
 
-
 				<div class="mobile-navigation"></div>
 			</div>
 		</header>
 		<main class="main-content">
 		<div class="container">
-			<div class="page">
-				<div class="row">
-					<div class="col-md-9">
-						<div class="slider">
-							<ul class="slides">
-								<li><a href="#"><img src="dummy/slide-1.jpg"
-										alt="Slide 1"></a></li>
-								<li><a href="#"><img src="dummy/slide-2.jpg"
-										alt="Slide 2"></a></li>
-								<li><a href="#"><img src="dummy/slide-3.jpg"
-										alt="Slide 3"></a></li>
-							</ul>
-						</div>
+			<div class="row">
+				<div class="col-sm-6 col-md-4 col-md-offset-4">
+					<h1 class="text-center login-title">Register in MovieRate</h1>
+					<div class="account-wall">
+						<form class="form-signin" action="RegisterServlet" method="POST">
+							<input id= "username" type="text" class="form-control" placeholder="username" name="username"
+								required autofocus> <input type="text"
+								class="form-control" name="email" placeholder="email" required> <input
+								type="password" class="form-control" name="password" placeholder="password"
+								required> <input  type="password" class="form-control" name="password2"
+								placeholder="password again" required>
+							<button class="btn btn-lg btn-primary btn-block" type="submit">
+								Register</button>
+							<br> <label class="checkbox pull-left"> <input
+								type="checkbox" value="remember-me"> Remember me
+							</label>
+						</form>
 					</div>
-					<div class="col-md-3">
-						<div class="row">
-							<div class="col-sm-6 col-md-12">
-								<div class="latest-movie">
-									<a href="#"><img src="dummy/thumb-1.jpg" alt="Movie 1"></a>
-								</div>
-							</div>
-							<div class="col-sm-6 col-md-12">
-								<div class="latest-movie">
-									<a href="#"><img src="dummy/thumb-2.jpg" alt="Movie 2"></a>
-								</div>
-							</div>
-						</div>
-					</div>
+					<a href="login.html" class="text-center new-account">Log in </a>
 				</div>
-				<!-- .row -->
-				<div class="row">
-					<div class="col-sm-6 col-md-3">
-						<div class="latest-movie">
-							<a href="#"><img src="dummy/thumb-3.jpg" alt="Movie 3"></a>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-3">
-						<div class="latest-movie">
-							<a href="#"><img src="dummy/thumb-4.jpg" alt="Movie 4"></a>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-3">
-						<div class="latest-movie">
-							<a href="#"><img src="dummy/thumb-5.jpg" alt="Movie 5"></a>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-3">
-						<div class="latest-movie">
-							<a href="#"><img src="dummy/thumb-6.jpg" alt="Movie 6"></a>
-						</div>
-					</div>
-				</div>
-				<!-- .row -->
+			</div>
+		</div>
 		</main>
-
 		<footer class="site-footer">
 			<div class="container">
 				<div class="colophon">Copyright 2016 MovieRate , Designed by

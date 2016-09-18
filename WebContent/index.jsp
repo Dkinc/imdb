@@ -51,8 +51,8 @@
 						<li class="menu-item current-menu-item"><a href="index.jsp">Home</a></li>
 						<li class="menu-item"><a href="about.html">About</a></li>
 						<%if(session.getAttribute("loggedAs") == null){%>
-						<li class="menu-item"><a href="login.html">Log In</a></li>
-						<li class="menu-item"><a href="register.html">Register</a></li>
+						<li class="menu-item"><a href="login.jsp">Log In</a></li>
+						<li class="menu-item"><a href="register.jsp">Register</a></li>
 						<% } else{%>
 						<li class="menu-item"><a href="addMovie.html">Add Movie</a></li>
 						<li class="menu-item"><a href="LogOutServlet" >Log Out</a></li>

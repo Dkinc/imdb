@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -39,16 +41,22 @@
 					<div class="main-navigation">
 						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
 						<ul class="menu">
-							<li class="menu-item current-menu-item"><a href="index.jsp">Home</a></li>
-							<li class="menu-item"><a href="about.html">About</a></li>
-							<li class="menu-item"><a href="login.html">Log In</a></li>
-							<li class="menu-item"><a href="register.html">Register</a></li>		
-							<!-- 
+						<li class="menu-item current-menu-item"><a href="index.jsp">Home</a></li>
+						<li class="menu-item"><a href="about.html">About</a></li>
+						<%if(session.getAttribute("loggedAs") == null){%>
+						<li class="menu-item"><a href="login.jsp">Log In</a></li>
+						<li class="menu-item"><a href="register.jsp">Register</a></li>
+						<% } else{%>
+						<li class="menu-item"><a href="addMovie.html">Add Movie</a></li>
+						<li class="menu-item"><a href="LogOutServlet" >Log Out</a></li>
+						<%} %>
+						<!-- 
 							<li class="menu-item"><a href="review.html">Movie reviews</a></li>
 							<li class="menu-item"><a href="joinus.html">Join us</a></li>
 							<li class="menu-item"><a href="contact.html">Contact</a></li>
 							 -->
-						</ul> <!-- .menu -->
+					</ul>
+					<!-- .menu -->
 
 						<form action="#" class="search-form">
 							<input type="text" placeholder="Search...">
@@ -63,12 +71,13 @@
 						<div class="container">
 						    <div class="row">
 						        <div class="col-sm-6 col-md-4 col-md-offset-4">
-						            <h1 class="text-center login-title">Log in to MovieRate</h1>
+						            <h1 class="text-center login-title">Log in Failed.</h1>
+						            <h2 class="text-center login-title">Please try angin.</h2>
 						            <div class="account-wall">
 						<form class="form-signin" action="LoginServlet" method="POST">
-							<input type="text" class="form-control" placeholder="Username"
+							<input type="text" class="form-control" placeholder="username" name="username"
 								required autofocus> <input type="password"
-								class="form-control" placeholder="Password" required>
+								class="form-control" placeholder="password" name="password" required>
 							<button class="btn btn-lg btn-primary btn-block" type="submit">
 								Log in</button>
 							<br> <label class="checkbox pull-left"> <input
