@@ -35,6 +35,11 @@ public class MovieManager {
 	}
 	
 	 public void searchMovie(String str){
-		//todo	
+		 HashSet<Movie> searchResult = new HashSet<>();
+			for (Movie movie : movies) {
+				if(movie.getTitle().contains(str) || str.contains(movie.getTitle())){
+					searchResult.add(movie);
+				}
+			}
     }
 }

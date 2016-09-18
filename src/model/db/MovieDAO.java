@@ -25,7 +25,7 @@ public class MovieDAO {
 		return instance;
 	}
 	
-	public Set<Movie> getAllMovies(){
+	public HashSet<Movie> getAllMovies(){
 		HashSet<Movie> movies = new HashSet<Movie>();
 		try {
 			Statement st = DBManager.getInstance().getConnection().createStatement();
@@ -118,7 +118,7 @@ public class MovieDAO {
 										);
 			}
 		} catch (SQLException e) {
-			System.out.println("Oops, cannot make statement.");
+			System.out.println("Oops, cannot make statement!");
 			
 		}
     	return m;

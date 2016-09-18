@@ -25,6 +25,10 @@ public class UsersManager {
 		return instance;
 	}
 	
+	public User getUser(String username){
+		return registerredUsers.get(username);
+	}
+	
 	public boolean validLogin(String username, String password){
 		
 		// !!! NOT WORKING IDK WHY !!!
