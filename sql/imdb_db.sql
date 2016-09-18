@@ -3,7 +3,8 @@
 -- Host: localhost    Database: imdb_database
 -- ------------------------------------------------------
 -- Server version	5.7.15-log
-
+CREATE SCHEMA imdb COLLATE = utf8_general_ci;
+use imdb;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;

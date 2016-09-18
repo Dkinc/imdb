@@ -29,18 +29,18 @@ public class MovieDAO {
 		HashSet<Movie> movies = new HashSet<Movie>();
 		try {
 			Statement st = DBManager.getInstance().getConnection().createStatement();
-			ResultSet resultSet = st.executeQuery("SELECT title, director, writter,pg_rating,movieLength,releaseDate,awards,resume,movieRating,numberOfRates FROM movies;");
+			ResultSet resultSet = st.executeQuery("SELECT title, director, writter,pg_rating,movie_length,release_date,awards,resume,movie_rating,number_of_rates FROM movies;");
 			while(resultSet.next()){
 				movies.add(new Movie(	resultSet.getString("title"),
 										resultSet.getString("director"),
 										resultSet.getString("writter"),
 										resultSet.getString("pg_rating"),
-										resultSet.getString("movieLength"),
-										resultSet.getString("releaseDate"),
+										resultSet.getString("movie_length"),
+										resultSet.getString("release_date"),
 										resultSet.getString("awards"),
 										resultSet.getString("resume"),
-										resultSet.getDouble("movieRating"),
-										resultSet.getInt("numberOfRates")
+										resultSet.getDouble("movie_rating"),
+										resultSet.getInt("number_of_rates")
 										));
 			}
 		} catch (SQLException e) {
@@ -97,5 +97,30 @@ public class MovieDAO {
     }
     
    
+    public Movie getMovieById(int movieId){
     
+        Movie m = null;
+    	try {
+			Statement st = DBManager.getInstance().getConnection().createStatement();
+			ResultSet resultSet = st.executeQuery("SELECT title, director, writter,pg_rating,movie_length,release_date,awards,resume,movie_rating,number_of_rates FROM movies where "
+					+ "idMovies = movieId;");
+			while(resultSet.next()){
+				         m = new Movie(	resultSet.getString("title"),
+										resultSet.getString("director"),
+										resultSet.getString("writter"),
+										resultSet.getString("pg_rating"),
+										resultSet.getString("movie_length"),
+										resultSet.getString("release_date"),
+										resultSet.getString("awards"),
+										resultSet.getString("resume"),
+										resultSet.getDouble("movie_rating"),
+										resultSet.getInt("number_of_rates")
+										);
+			}
+		} catch (SQLException e) {
+			System.out.println("Oops, cannot make statement.");
+			
+		}
+    	return m;
+    }
 }
