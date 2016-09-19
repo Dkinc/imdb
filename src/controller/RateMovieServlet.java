@@ -46,8 +46,8 @@ public class RateMovieServlet extends HttpServlet {
 		}
 		else{
 			User user = UsersManager.getInstance().getUser(logged);
-			MovieDAO.getInstance().rateMovie(MovieDAO.getInstance().getMovieById(movieId), user, rate);
-			// Да се рефрешне страницата с изписване на новия рейтинг
+//			MovieDAO.getInstance().rateMovie(MovieDAO.getInstance().getMovieById(movieId), user, rate);
+			// пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			RequestDispatcher view = request.getRequestDispatcher("refreshThePageAfterRate.html");// refresh the page with new movie rating
 			view.forward(request, response);
 			

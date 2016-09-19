@@ -14,7 +14,6 @@ public class UsersManager {
 		registerredUsers = new ConcurrentHashMap<>();
 		for(User u : UserDAO.getInstance().getAllUsers()){
 			registerredUsers.put(u.getUsername(), u);
-			System.out.println(u.getUsername() + " Loaded");
 		}
 	}
 	

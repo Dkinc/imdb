@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="model.UsersManager" %>
-    <%@ page import="model.MovieManager" %>
-    <%@ page import="model.Movie" %>
-	<%@ page import="model.User" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -32,7 +28,9 @@
 
 <body>
 
-
+	<%if(session.getAttribute("loggedAs") == null || session.isNew()){
+		response.sendRedirect("login.jsp");
+	} %>
 	<div id="site-content">
 		<header class="site-header">
 			<div class="container">
@@ -59,57 +57,41 @@
 					</ul>
 					<!-- .menu -->
 
-					<form action="SearchMovieServlet" method="GET"  class="search-form">
-						<input id= "title" type="text" class="form-control" placeholder="title" name="title" required>
+					<form action="#" class="search-form">
+						<input type="text" placeholder="Search...">
 						<button>
-							<i class="fa fa-search" ></i>
+							<i class="fa fa-search"></i>
 						</button>
 					</form>
 				</div>
 				<!-- .main-navigation -->
-
 
 				<div class="mobile-navigation"></div>
 			</div>
 		</header>
 		<main class="main-content">
 		<div class="container">
-			<div class="page">
-				<div class="row">
-					<div class="col-md-9">
-						<div class="slider">
-							<ul class="slides">
-							<%	int count = 0;
-							for(Movie m :MovieManager.getInstance().getMovies()){
-							if(count < 3){%>
-								<li><a href="#" ><img src=<%=m.getPosterLink() %> 
-										alt=<%=m.getTitle() %> 
-										style="width:870px;height:518px;"></a></li>		
-							<%}
-							if(count == 3){%>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-3">
-						<div class="row">
-						<%}
-							if(count > 3){ %>
-							<div class="col-sm-6 col-md-12">
-								<div class="latest-movie">
-									<a href="#"><img src=<%=m.getPosterLink() %> 
-										alt=<%=m.getTitle() %> 
-										style="width:270px;height:244px;"></a>
-								</div>
-							</div>
-							<%} %>
-								<%if(count == 5) {%>
-								</div>
-							</div>
-						</div>
-									<% break;}%>
-									<%count++;} %>
+			<div class="row">
+				<div class="col-sm-6 col-md-4 col-md-offset-4">
+					<h1 class="text-center login-title">Add a Movie</h1>
+					<div class="account-wall">
+						<form class="form-signin" action="AddMovieServlet" method="POST">
+							<input id= "title" type="text" class="form-control" placeholder="title" name="title" required autofocus> 
+							<input id= "director" type="text" class="form-control" placeholder="director" name="director" required autofocus>
+							<input id= "writter" type="text" class="form-control" placeholder="writter" name="writter" required autofocus>
+							<input id= "pg_rating" type="text" class="form-control" placeholder="pg_rating" name="pg_rating" required autofocus>
+							<input id= "movieLength" type="text" class="form-control" placeholder="movieLength" name="movieLength" required autofocus>	
+							<input id= "releaseDate" type="text" class="form-control" placeholder="releaseDate" name="releaseDate" required autofocus>	
+							<input id= "awards" type="text" class="form-control" placeholder="awards" name="awards" required autofocus>	
+							<input id= "resume" type="text" class="form-control" placeholder="resume" name="resume" required autofocus>
+							<input id= "posterLink" type="url" class="form-control" placeholder="posterLink" name="posterLink" required= "http://" autofocus>
+							<br><button class="btn btn-lg btn-primary btn-block" type="submit">    Add    </button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 		</main>
-
 		<footer class="site-footer">
 			<div class="container">
 				<div class="colophon">Copyright 2016 MovieRate , Designed by
@@ -121,10 +103,10 @@
 	</div>
 	<!-- Default snippet for navigation -->
 
+
+
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/plugins.js"></script>
 	<script src="js/app.js"></script>
 
 </body>
-
-</html>

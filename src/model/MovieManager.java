@@ -1,7 +1,7 @@
 package model;
 
 import java.util.HashSet;
-import java.util.concurrent.ConcurrentHashMap;
+
 
 import model.db.MovieDAO;
 import model.db.UserDAO;
@@ -9,14 +9,16 @@ import model.db.UserDAO;
 
 public class MovieManager {
 
-	private HashSet<Movie> movies;//
+	private HashSet<Movie> movies;
 	
 	
 	private static MovieManager instance;
 	
 	private MovieManager(){
-		
-		this.movies = (HashSet<Movie>) MovieDAO.getInstance().getAllMovies();
+		movies = new HashSet();
+		for(Movie m : MovieDAO.getInstance().getAllMovies()){
+			movies.add(m);
+		}
 	}
 	
 	public synchronized static MovieManager getInstance(){
@@ -26,20 +28,30 @@ public class MovieManager {
 		return instance;
 	}
 	/*
-	 * Създава се (обект) филм (този който потребителя добавя).
+	 * пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ) пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ).
 	 */
-	public void makeMovie(String title, String director, String writter, String pg_rating, String movieLength, String releaseDate, String awards, String resume){
-		Movie m = new Movie(title, director, writter, pg_rating, movieLength, releaseDate, awards, resume, 0, 0);
-		movies.add(m);//кешира
-		MovieDAO.getInstance().addMovie(m);// записва в базата
+	public synchronized void makeMovie(String title, String director, String writter, String pg_rating, String movieLength, String releaseDate, String awards, String resume, String posterLink){
+		Movie m = new Movie(title, director, writter, pg_rating, movieLength, releaseDate, awards, resume, posterLink, 0, 0);
+		movies.add(m);//пїЅпїЅпїЅпїЅпїЅпїЅ
+		MovieDAO.getInstance().addMovie(m);// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	}
 	
-	 public void searchMovie(String str){
+	 public synchronized HashSet<Movie> searchMovie(String title){
 		 HashSet<Movie> searchResult = new HashSet<>();
 			for (Movie movie : movies) {
-				if(movie.getTitle().contains(str) || str.contains(movie.getTitle())){
+				if(movie.getTitle().contains(title) || title.equals(movie.getTitle())){
 					searchResult.add(movie);
 				}
 			}
+			return searchResult;
     }
+	 
+	 public synchronized void test(){
+		 System.out.println("testing.......");
+	 }
+	 
+	 public HashSet<Movie> getMovies() {
+		return movies;
+	}
+	
 }

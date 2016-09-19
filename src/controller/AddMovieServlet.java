@@ -26,6 +26,9 @@ public class AddMovieServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getSession().getAttribute("loggedAs") == null || request.getSession().isNew()){
+			response.sendRedirect("login.jsp");
+		} 
 		String title = request.getParameter("title");
 		String director = request.getParameter("director");
 		String writter = request.getParameter("writter");
@@ -34,18 +37,19 @@ public class AddMovieServlet extends HttpServlet {
 		String releaseDate = request.getParameter("releaseDate");
 		String awards = request.getParameter("awards");
 		String resume = request.getParameter("resume");
+		String posterLink = request.getParameter("posterLink");
 		boolean validation = false;
-		if (title != null && director != null && writter != null && movieLength != null  && pg_rating != null && releaseDate != null  && awards != null  && resume != null) {
-			if (title != "" && director != "" && writter != "" && pg_rating != "" && director != ""  && movieLength != ""  && releaseDate != ""  && awards != ""  && resume != "") {
+		if (title != null && director != null && writter != null && movieLength != null  && pg_rating != null && releaseDate != null  && awards != null  && resume != null && posterLink != null) {
+			if (title != "" && director != "" && writter != "" && pg_rating != "" && director != ""  && movieLength != ""  && releaseDate != ""  && awards != ""  && resume != "" && posterLink != "") {
 					validation = true;
 			}
 		}
 		if (validation) {
-		    MovieManager.getInstance().makeMovie(title, director, writter, pg_rating, movieLength, releaseDate, awards, resume);
+		    MovieManager.getInstance().makeMovie(title, director, writter, pg_rating, movieLength, releaseDate, awards, resume, posterLink);
 			RequestDispatcher view = request.getRequestDispatcher("index.jsp");// �� �� �������!
 			view.forward(request, response);
 		} else {
-			RequestDispatcher view = request.getRequestDispatcher("addMovie.html"); // �� �� �������!
+			RequestDispatcher view = request.getRequestDispatcher("addMovie.jsp"); // �� �� �������!
 			view.forward(request, response);
 		}
 	}

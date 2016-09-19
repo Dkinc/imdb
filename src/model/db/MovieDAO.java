@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
-import java.util.Set;
 
 import model.Movie;
 import model.User;
@@ -29,7 +28,7 @@ public class MovieDAO {
 		HashSet<Movie> movies = new HashSet<Movie>();
 		try {
 			Statement st = DBManager.getInstance().getConnection().createStatement();
-			ResultSet resultSet = st.executeQuery("SELECT title, director, writter,pg_rating,movie_length,release_date,awards,resume,movie_rating,number_of_rates FROM movies;");
+			ResultSet resultSet = st.executeQuery("SELECT title, director, writter,pg_rating,movie_length,release_date,awards,resume,poster_pic,movie_rating,number_of_rates FROM movies ORDER BY movie_rating Desc;");
 			while(resultSet.next()){
 				movies.add(new Movie(	resultSet.getString("title"),
 										resultSet.getString("director"),
@@ -39,12 +38,13 @@ public class MovieDAO {
 										resultSet.getString("release_date"),
 										resultSet.getString("awards"),
 										resultSet.getString("resume"),
+										resultSet.getString("poster_pic"),
 										resultSet.getDouble("movie_rating"),
 										resultSet.getInt("number_of_rates")
 										));
 			}
 		} catch (SQLException e) {
-			System.out.println("Oops, cannot make statement.");
+			System.out.println("Oops, cannot make statement in getAllMovies .");
 			return movies;
 		}
 		System.out.println("Movies loaded successfully");
@@ -54,7 +54,7 @@ public class MovieDAO {
 	public void addMovie(Movie m){
 		try {
 			PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement("INSERT INTO movies (title, director, writter,pg_rating,"
-			+ "movie_length,release_date,awards,resume,movie_rating,number_of_rates) VALUES (?,?,?,?,?,?,?,?,?,?);");
+			+ "movie_length,release_date,awards,resume,poster_pic,movie_rating,number_of_rates) VALUES (?,?,?,?,?,?,?,?,?,?,?);");
 			
 			st.setString(1, m.getTitle());
 			st.setString(2, m.getDirector());
@@ -64,8 +64,9 @@ public class MovieDAO {
 			st.setString(6, m.getReleaseDate());
 			st.setString(7, m.getAwards());
 			st.setString(8, m.getResume());
-			st.setDouble(9, m.getMovieRating());
-			st.setInt(10, m.getNumberOfRates());
+			st.setString(9, m.getPosterLink());
+			st.setDouble(10, m.getMovieRating());
+			st.setInt(11, m.getNumberOfRates());
 			
 			st.executeUpdate();
 			System.out.println("Movie added successfully");
@@ -97,13 +98,13 @@ public class MovieDAO {
     }
     
    
-    public Movie getMovieById(int movieId){
+        public Movie getMovieById(String movieName){
     
         Movie m = null;
     	try {
-			Statement st = DBManager.getInstance().getConnection().createStatement();
-			ResultSet resultSet = st.executeQuery("SELECT title, director, writter,pg_rating,movie_length,release_date,awards,resume,movie_rating,number_of_rates FROM movies where "
-					+ "idMovies = movieId;");
+    		PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement("SELECT title, director, writter,pg_rating,movie_length,release_date,awards,resume,poster_pic,movie_rating,number_of_rates "
+    				+ "FROM movies WHERE title =" +  movieName);
+			ResultSet resultSet = st.executeQuery();
 			while(resultSet.next()){
 				         m = new Movie(	resultSet.getString("title"),
 										resultSet.getString("director"),
@@ -113,6 +114,7 @@ public class MovieDAO {
 										resultSet.getString("release_date"),
 										resultSet.getString("awards"),
 										resultSet.getString("resume"),
+										resultSet.getString("poster_pic"),
 										resultSet.getDouble("movie_rating"),
 										resultSet.getInt("number_of_rates")
 										);

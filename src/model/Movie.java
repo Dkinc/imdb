@@ -1,10 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-
-
 public class Movie {
 
 //	enum Pg_Rating {G,PG,PG_13,R,NC_17}
@@ -17,13 +12,13 @@ public class Movie {
 	private String releaseDate;
 	private String awards;
 	private String resume;
+	private String posterLink;
 	private double movieRating;
 	private int numberOfRates = 0;
 	
 	
 	public Movie(String title, String director, String writter, String pg_rating, String movieLength,
-			String releaseDate, String awards, String resume, double movieRating, int numberOfRates) {
-		super();
+			String releaseDate, String awards, String resume, String posterLink, double movieRating, int numberOfRates) {
 		this.title = title;
 		this.director = director;
 		this.writter = writter;
@@ -34,6 +29,7 @@ public class Movie {
 		this.resume = resume;
 		this.movieRating = movieRating;
 		this.numberOfRates = numberOfRates;
+		this.posterLink = posterLink;
 	}
 
 
@@ -85,6 +81,10 @@ public class Movie {
 	public int getNumberOfRates() {
 		return numberOfRates;
 	}
+	
+	public String getPosterLink() {
+		return posterLink;
+	}
 
 
 	public void setNumberOfRates(int numberOfRates) {
@@ -95,7 +95,6 @@ public class Movie {
 	public void setMovieRating(double movieRating) {
 		this.movieRating = movieRating;
 	}
-	
 	
 	
 	
