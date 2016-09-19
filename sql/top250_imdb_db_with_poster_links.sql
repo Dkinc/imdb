@@ -1,4 +1,8 @@
-use imdb_database;
+-- MySQL dump 10.13  Distrib 5.7.15, for Win64 (x86_64)
+--
+-- Host: localhost    Database: imdb_database
+-- ------------------------------------------------------
+-- Server version	5.7.15-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -94,7 +98,7 @@ DROP TABLE IF EXISTS `movies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `movies` (
-  `idMovies` int(11) NOT NULL,
+  `idMovies` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) DEFAULT NULL,
   `director` varchar(45) DEFAULT NULL,
   `writter` varchar(45) DEFAULT NULL,
@@ -107,7 +111,7 @@ CREATE TABLE `movies` (
   `poster_pic` varchar(200) DEFAULT NULL,
   `movie_rating` int(11) DEFAULT NULL,
   PRIMARY KEY (`idMovies`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=251 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-19 19:10:29
+-- Dump completed on 2016-09-19 22:44:13
