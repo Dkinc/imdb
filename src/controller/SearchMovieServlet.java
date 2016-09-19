@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashSet;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,14 +23,17 @@ public class SearchMovieServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HashSet<Movie> searchResult = new HashSet<>();
+		String searchText = request.getParameter("search");
+		MovieManager.getInstance().searchMovie(searchText, searchResult);
+		
+		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String searchText = request.getParameter("search");
-		MovieManager.getInstance().searchMovie(searchText);
+		
 		
 	}
 
