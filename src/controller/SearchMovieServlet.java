@@ -24,6 +24,7 @@ public class SearchMovieServlet extends HttpServlet {
 			title = null;
 			request.setAttribute("title", null);
 		}
+		request.setAttribute("title", title);
 		RequestDispatcher view = request.getRequestDispatcher("Search.jsp?=" + title);
 		view.forward(request, response);
 	}

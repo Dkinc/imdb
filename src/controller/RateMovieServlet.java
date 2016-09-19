@@ -31,28 +31,38 @@ public class RateMovieServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	      
-		int rate = Integer.parseInt(request.getParameter("rate"));// da se testva, 
-		int movieId = Integer.parseInt(request.getParameter("id"));// da se testva, 
-		
-		String requestedUsername = request.getParameter("username");
-		if(requestedUsername != null){
-			User user = UsersManager.getInstance().getUser(requestedUsername);
+		if(isNumeric(request.getParameter("rating"))){
 			
+			int rate = Integer.parseInt(request.getParameter("rating"));// da se testva,
+			String movie = request.getParameter("movie");// da se testva, 
+			
+			String requestedUsername = request.getParameter("username");
+			if(requestedUsername != null){
+				User user = UsersManager.getInstance().getUser(requestedUsername);
+			}
+			String logged = (String) request.getSession().getAttribute("loggedAs");
+			if(logged == null){//session is new or expired
+				System.out.println("This should not happen right now. Might happen later on other pages");
+			}
+			else{
+				User user = UsersManager.getInstance().getUser(logged);
+	//			MovieDAO.getInstance().rateMovie(MovieDAO.getInstance().getMovieById(movieId), user, rate);
+				// �� �� �������� ���������� � ��������� �� ����� �������
+				RequestDispatcher view = request.getRequestDispatcher("movie.jsp");// refresh the page with new movie rating
+				view.forward(request, response);
+			}
 		}
-		String logged = (String) request.getSession().getAttribute("loggedAs");
-		if(logged == null){//session is new or expired
-			System.out.println("This should not happen right now. Might happen later on other pages");
-		}
+			
 		else{
-			User user = UsersManager.getInstance().getUser(logged);
-//			MovieDAO.getInstance().rateMovie(MovieDAO.getInstance().getMovieById(movieId), user, rate);
-			// �� �� �������� ���������� � ��������� �� ����� �������
-			RequestDispatcher view = request.getRequestDispatcher("refreshThePageAfterRate.html");// refresh the page with new movie rating
+			RequestDispatcher view = request.getRequestDispatcher("movie.jsp");
 			view.forward(request, response);
 			
-			
 		}
+	}
+	
+	public static boolean isNumeric(String str)
+	{
+	  return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
 	}
 
 }

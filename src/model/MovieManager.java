@@ -46,6 +46,15 @@ public class MovieManager {
 			return searchResult;
     }
 	 
+	 public synchronized Movie getMovie(String title){
+			for (Movie movie : movies) {
+				if(movie.getTitle().contains(title) || title.equals(movie.getTitle())){
+					return(movie);
+				}
+			}
+			return null;
+    }
+	 
 	 public synchronized void test(){
 		 System.out.println("testing.......");
 	 }

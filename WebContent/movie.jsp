@@ -1,5 +1,3 @@
-<%@page import="model.MovieManager"%>
-<%@page import="model.Movie"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -55,7 +53,7 @@
 					</ul>
 					<!-- .menu -->
 
-						<form action="SearchMovieServlet" method="GET"  class="search-form">
+					<form action="SearchMovieServlet" method="GET"  class="search-form">
 						<input id= "title" type="text" class="form-control" placeholder="title" name="title" required>
 						<button>
 							<i class="fa fa-search" ></i>
@@ -70,32 +68,45 @@
 			<main class="main-content">
 				<div class="container">
 					<div class="page">
-						<div class="breadcrumbs">
-							<a href="index.jsp">Home</a>
-							<span>Search</span>
-						</div>
+						<div class="content">
+							<div class="row">
+								<div class="col-md-6">
+									<figure class="movie-poster"><img src=<%=request.getAttribute("posterLink") %> alt=<%=request.getAttribute("title") %> style="width:540px;height:488px;"></figure>
+								</div>
+								<div class="col-md-6">
+									<h2 class="movie-title"><%=request.getAttribute("title") %></h2>
+									<div class="movie-summary">
+										<p> <%=request.getAttribute("resume") %> </p>
+									</div>
+									<ul class="movie-meta">
+										<li><strong>Rating: </strong> 
+											<%=request.getAttribute("movieRating") %>
+										</li>
+										<br>
+										<form class="form-signin" action="RateMovieServlet" method="POST">
+											<%request.setAttribute("movie", request.getAttribute("title")); %>
+											<input type="text" class="form-control" placeholder="rating" name="rating"
+											required autofocus>
+											<button class="btn btn-lg btn-primary btn-block" type="submit">
+											Rate</button>
+										</form>
+										<li><strong>Length:</strong> <%=request.getAttribute("movieLength") %></li>
+										<li><strong>Premiere:</strong> <%=request.getAttribute("releaseDate") %></li>
+									</ul>
 
-						
-						<div class="movie-list">
-						<%	String title=(String)request.getAttribute("title");
-						if(title == null){ %>
-								<h1>Sorry. No results found...</h1>
-							<%}
-							else{%>
-						<%for(Movie m : MovieManager.getInstance().searchMovie(request.getParameter("title"))){ %>
-							
-							<div class="movie">
-								<figure class="movie-poster" ><img src= <%=m.getPosterLink()%> alt=<%=m.getTitle() %>></figure>
-								<div class="movie-title"><a href="GetMovieServlet?title=<%=m.getTitle() %>"><%=m.getTitle() %></a></div>
-								<p><%=m.getResume() %></p>
+									<ul class="starring">
+										<li><strong>Director:</strong> <%=request.getAttribute("director") %></li>
+										<li><strong>Writer:</strong><%=request.getAttribute("writter") %></li>
+									</ul>
+								</div>
+							</div> <!-- .row -->
+							<div class="entry-content">
+								<p><%=request.getAttribute("awards") %></p>
 							</div>
-							<%} 
-							}%>
-						</div> <!-- .movie-list -->
+						</div>
 					</div>
 				</div> <!-- .container -->
 			</main>
-			
 			<footer class="site-footer">
 			<div class="container">
 				<div class="colophon">Copyright 2016 MovieRate , Designed by

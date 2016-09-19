@@ -82,7 +82,7 @@
 							<%	int count = 0;
 							for(Movie m :MovieManager.getInstance().getMovies()){
 							if(count < 3){%>
-								<li><a href="#" ><img src=<%=m.getPosterLink() %> 
+								<li><a href="GetMovieServlet?title=<%=m.getTitle() %>" ><img src=<%=m.getPosterLink() %>
 										alt=<%=m.getTitle() %> 
 										style="width:870px;height:518px;"></a></li>		
 							<%}
@@ -96,7 +96,7 @@
 							if(count > 3){ %>
 							<div class="col-sm-6 col-md-12">
 								<div class="latest-movie">
-									<a href="#"><img src=<%=m.getPosterLink() %> 
+									<a href="GetMovieServlet?title=<%=m.getTitle() %>"><img src=<%=m.getPosterLink() %> 
 										alt=<%=m.getTitle() %> 
 										style="width:270px;height:244px;"></a>
 								</div>

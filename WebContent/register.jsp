@@ -55,10 +55,10 @@
 					</ul>
 					<!-- .menu -->
 
-					<form action="#" class="search-form">
-						<input type="text" placeholder="Search...">
+					<form action="SearchMovieServlet" method="GET"  class="search-form">
+						<input id= "title" type="text" class="form-control" placeholder="title" name="title" required>
 						<button>
-							<i class="fa fa-search"></i>
+							<i class="fa fa-search" ></i>
 						</button>
 					</form>
 				</div>
