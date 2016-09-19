@@ -105,8 +105,8 @@ CREATE TABLE `movies` (
   `pg_rating` varchar(45) DEFAULT NULL,
   `movie_length` varchar(45) DEFAULT NULL,
   `release_date` varchar(45) DEFAULT NULL,
-  `resume` mediumtext NOT NULL,
-  `awards` varchar(255) NOT NULL,
+  `awards` varchar(255) DEFAULT NULL,
+  `resume` mediumtext,
   `number_of_rates` int(11) DEFAULT NULL,
   `poster_pic` varchar(200) DEFAULT NULL,
   `movie_rating` int(11) DEFAULT NULL,
@@ -160,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-19 22:44:13
+-- Dump completed on 2016-09-20  0:26:57
