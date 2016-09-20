@@ -32,5 +32,21 @@ public class GetMovieServlet extends HttpServlet {
 		view.forward(request, response);
 	}
 
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Movie movie = MovieManager.getInstance().getMovie(request.getParameter("title"));
+		request.setAttribute("title", movie.getTitle());
+		request.setAttribute("director", movie.getDirector());
+		request.setAttribute("writter", movie.getWritter());
+		request.setAttribute("movieLength", movie.getMovieLength());
+		request.setAttribute("releaseDate", movie.getReleaseDate());
+		request.setAttribute("awards", movie.getAwards());
+		request.setAttribute("resume", movie.getResume());
+		request.setAttribute("posterLink", movie.getPosterLink());
+		request.setAttribute("movieRating", movie.getMovieRating());
+		request.setAttribute("numberOfRates", movie.getNumberOfRates());
+		RequestDispatcher view = request.getRequestDispatcher("movie.jsp");
+		view.forward(request, response);
+	}
 
 }

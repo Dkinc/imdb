@@ -78,15 +78,18 @@ public class MovieDAO {
 		
 	}
 	
-	public void rateMovie(Movie m, User u, int i){ 
+	public void rateMovie(Movie m, int rate){ 
 		
-		double rating = m.getMovieRating()*(m.getNumberOfRates()+i)/(m.getNumberOfRates()+1);
+		double rating = m.getMovieRating()*(m.getNumberOfRates()+rate)/(m.getNumberOfRates()+1);
 		m.setNumberOfRates(m.getNumberOfRates()+1);
 		m.setMovieRating(rating);
 		try {
-			Statement st = DBManager.getInstance().getConnection().createStatement();
-			st.executeUpdate("UPDATE movies SET number_of_rates = number_of_rates + 1, movie_rating = " + rating + " where title = " + m.getTitle() + " and  release_date = " + m.getReleaseDate());
 			
+			PreparedStatement pst = DBManager.getInstance().getConnection().prepareStatement("UPDATE movies SET number_of_rates = ?, movie_rating = ?  WHERE title = ? ;");
+			pst.setInt(1, m.getNumberOfRates()+1);
+			pst.setDouble(2, rating);
+			pst.setString(3, m.getTitle());
+			pst.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Rate problems :)");
 			e.printStackTrace();

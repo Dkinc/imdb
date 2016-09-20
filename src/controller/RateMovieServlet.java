@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Movie;
 import model.MovieManager;
 import model.User;
 import model.UsersManager;
@@ -21,49 +22,48 @@ import model.db.MovieDAO;
 @WebServlet("/RateMovieServlet")
 public class RateMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (isNumeric(request.getParameter("rating"))) {
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(isNumeric(request.getParameter("rating"))){
-			
-			int rate = Integer.parseInt(request.getParameter("rating"));// da se testva,
-			String movie = request.getParameter("movie");// da se testva, 
-			
-			String requestedUsername = request.getParameter("username");
-			if(requestedUsername != null){
-				User user = UsersManager.getInstance().getUser(requestedUsername);
-			}
+			int rate = Integer.parseInt(request.getParameter("rating"));// da se
+																		// testva,
+
+			String movie = request.getParameter("movie");// da se testva,
+			Movie m = MovieManager.getInstance().getMovie(movie);
+			System.out.println("Rating - " + rate);
+			System.out.println("title = " + m.getTitle());
 			String logged = (String) request.getSession().getAttribute("loggedAs");
-			if(logged == null){//session is new or expired
-				System.out.println("This should not happen right now. Might happen later on other pages");
-			}
-			else{
+			if (logged == null) {// session is new or expired
+				RequestDispatcher view = request.getRequestDispatcher("login.jsp");
+				view.forward(request, response);
+			} else {
 				User user = UsersManager.getInstance().getUser(logged);
-	//			MovieDAO.getInstance().rateMovie(MovieDAO.getInstance().getMovieById(movieId), user, rate);
+				MovieDAO.getInstance().rateMovie(m, rate);
 				// �� �� �������� ���������� � ��������� �� ����� �������
-				RequestDispatcher view = request.getRequestDispatcher("movie.jsp");// refresh the page with new movie rating
+				request.setAttribute("title", m.getTitle());
+				RequestDispatcher view = request.getRequestDispatcher("movie.jsp?title =" + m.getTitle());
 				view.forward(request, response);
 			}
 		}
-			
-		else{
+
+		else {
 			RequestDispatcher view = request.getRequestDispatcher("movie.jsp");
 			view.forward(request, response);
-			
+
 		}
 	}
-	
-	public static boolean isNumeric(String str)
-	{
-	  return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+
+	public static boolean isNumeric(String str) {
+		return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional
+												// '-' and decimal.
 	}
 
 }
-  

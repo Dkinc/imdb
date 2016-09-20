@@ -1,5 +1,7 @@
+<%@page import="jdk.nashorn.internal.ir.RuntimeNode.Request"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page errorPage="error.png" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 	<head>
@@ -74,7 +76,8 @@
 									<figure class="movie-poster"><img src=<%=request.getAttribute("posterLink") %> alt=<%=request.getAttribute("title") %> style="width:540px;height:488px;"></figure>
 								</div>
 								<div class="col-md-6">
-									<h2 class="movie-title"><%=request.getAttribute("title") %></h2>
+								<% String title = request.getAttribute("title").toString();%>
+									<h2 class="movie-title"><%=title %></h2>
 									<div class="movie-summary">
 										<p> <%=request.getAttribute("resume") %> </p>
 									</div>
@@ -84,9 +87,10 @@
 										</li>
 										<br>
 										<form class="form-signin" action="RateMovieServlet" method="POST">
-											<%request.setAttribute("movie", request.getAttribute("title")); %>
 											<input type="text" class="form-control" placeholder="rating" name="rating"
 											required autofocus>
+											<input type="hidden" class="form-control" id="movie" name="movie"
+											value=<%=title%> >
 											<button class="btn btn-lg btn-primary btn-block" type="submit">
 											Rate</button>
 										</form>
